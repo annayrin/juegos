@@ -114,7 +114,7 @@ const matrix = [
     [1, 1, 1, 0, 0, 0, 0, 0],
     [1, 0, 1, 1, 1, 0, 0, 0],
     [1, 0, 0, 0, 1, 1, 1, 1],
-    [1, 0, 1, 0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 1, 0, 0, 0],
     [1, 0, 0, 0, 1, 0, 0, 0],
 
 ]
@@ -123,7 +123,9 @@ const matrix = [
 const first = [1, 1]
 
 const end = [6, 6]
-let checked = []
+
+let checked = {}
+
 
 
 function way(end, matrix, start) {
@@ -134,15 +136,16 @@ function way(end, matrix, start) {
     for (let i = 0; i < arr.length; i++) {
 
         let item = arr[i]
-        if (!checked.some(a => a[0] === item[0] && a[1] === item[1])) {
+        // if (!checked.some(a => a[0] === item[0] && a[1] === item[1])) {
+        if ( checked[`${item[0]}x${item[1]}`] !== 2 ) {
 
-            if (item[0] !== 4 && matrix[item[0] + 1][item[1]] !== 1 && matrix[item[0] + 1][item[1]] !== undefined) {
+            if (item[0] !== matrix.length-1 && matrix[item[0] + 1][item[1]] !== 1 && matrix[item[0] + 1][item[1]] !== undefined) {
                 array.push([item[0] + 1, item[1]])
             }
             if (item[0] !== 0 && matrix[item[0] - 1][item[1]] !== 1 && matrix[item[0] - 1][item[1]] !== undefined) {
                 array.push([item[0] - 1, item[1]])
             }
-            if (item[1] !== 7 && matrix[item[0]][item[1] + 1] !== 1 && matrix[item[0]][item[1] + 1] !== undefined) {
+            if (item[1] !== matrix[i].length-1 && matrix[item[0]][item[1] + 1] !== 1 && matrix[item[0]][item[1] + 1] !== undefined) {
                 array.push([item[0], item[1] + 1])
             }
             if (item[1] !== 0 && matrix[item[0]][item[1] - 1] !== 1 && matrix[item[0]][item[1] - 1] !== undefined) {
@@ -151,7 +154,7 @@ function way(end, matrix, start) {
 
 
         }
-        checked.push(item)
+        checked[`${item[0]}x${item[1]}`] = 2
 
     }
 
